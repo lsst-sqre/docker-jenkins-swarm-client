@@ -29,8 +29,6 @@ ENV JAVA /usr/bin/java
 ENV JENKINS_SWARM_JAR=${SWARM_JAR}
 
 RUN apk add --no-cache --upgrade openjdk8 bash git git-lfs
-RUN addgroup -S -g 444 ${USER}
-RUN adduser -S -u 444 -G ${USER} -swarm -h ${HOME} -s /bin/bash -D ${USER}
 
 # install docker client
 RUN apk add --no-cache --upgrade docker
@@ -42,6 +40,9 @@ COPY --from=downloader /${SWARM_JAR_NAME} ${SWARM_JAR}
 RUN chmod 755 ${SWARM_JAR}
 
 COPY ${SWARM_RUN} /usr/local/bin/${SWARM_RUN}
+
+RUN addgroup -S -g 444 ${USER}
+RUN adduser -S -u 444 -G ${USER} -h ${HOME} -s /bin/bash -D ${USER}
 
 USER $USER
 VOLUME $HOME
