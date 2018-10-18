@@ -11,28 +11,28 @@ run_swarm() {
   local java=${JAVA?JAVA is required}
   local swarm_jar=${JENKINS_SWARM_JAR?JENKINS_SWARM_JAR is required}
 
-  [[ -x "$java" ]] || (fail "${java} is not executable")
-  [[ -f "$swarm_jar" ]] || (fail "${swarm_jar} not accessible")
+  [[ -x $java ]] || (fail "${java} is not executable")
+  [[ -f $swarm_jar ]] || (fail "${swarm_jar} not accessible")
 
   declare -a cmd
 
   cmd=("$java")
-  [[ -n "$JAVA_ARGS" ]] && cmd+=("$JAVA_ARGS")
+  [[ -n $JAVA_ARGS ]] && cmd+=("$JAVA_ARGS")
   cmd+=(-jar "$JENKINS_SWARM_JAR")
-  [[ -n "$JENKINS_SLAVE_MODE" ]] && cmd+=(-mode "$JENKINS_SLAVE_MODE")
-  [[ -n "$EXECUTORS" ]] && cmd+=(-executors "$EXECUTORS")
-  [[ -n "$JENKINS_USERNAME" ]] && cmd+=(-username "$JENKINS_USERNAME")
-  [[ -n "$JENKINS_PASSWORD" ]] && cmd+=(-passwordEnvVariable JENKINS_PASSWORD)
-  [[ -n "$CLIENT_NAME" ]] && cmd+=(-name "$CLIENT_NAME")
-  [[ -n "$MASTER_URL" ]] && cmd+=(-master "$MASTER_URL")
-  [[ -n "$LABELS" ]] && cmd+=(-labels "$LABELS")
-  [[ -n "$FSROOT" ]] && cmd+=(-fsroot "$FSROOT")
-  [[ "$DISABLE_CLIENTS_UNIQUE_ID" == true ]] && cmd+=(-disableClientsUniqueId)
-  [[ "$DISABLE_SSL_VERIFICATION" == true ]] && cmd+=(-disableSslVerification)
-  [[ "$DELETE_EXISTING_CLIENTS" == true ]] && cmd+=(-deleteExistingClients)
-  [[ -n "$DESCRIPTION" ]] && cmd+=(-description "$DESCRIPTION")
-  [[ -n "$TUNNEL" ]] && cmd+=(-tunnel "$TUNNEL")
-  [[ -n "$AUTO_DISCOVERY_ADDRESS" ]] &&
+  [[ -n $JENKINS_SLAVE_MODE ]] && cmd+=(-mode "$JENKINS_SLAVE_MODE")
+  [[ -n $EXECUTORS ]] && cmd+=(-executors "$EXECUTORS")
+  [[ -n $JENKINS_USERNAME ]] && cmd+=(-username "$JENKINS_USERNAME")
+  [[ -n $JENKINS_PASSWORD ]] && cmd+=(-passwordEnvVariable JENKINS_PASSWORD)
+  [[ -n $CLIENT_NAME ]] && cmd+=(-name "$CLIENT_NAME")
+  [[ -n $MASTER_URL ]] && cmd+=(-master "$MASTER_URL")
+  [[ -n $LABELS ]] && cmd+=(-labels "$LABELS")
+  [[ -n $FSROOT ]] && cmd+=(-fsroot "$FSROOT")
+  [[ $DISABLE_CLIENTS_UNIQUE_ID == true ]] && cmd+=(-disableClientsUniqueId)
+  [[ $DISABLE_SSL_VERIFICATION == true ]] && cmd+=(-disableSslVerification)
+  [[ $DELETE_EXISTING_CLIENTS == true ]] && cmd+=(-deleteExistingClients)
+  [[ -n $DESCRIPTION ]] && cmd+=(-description "$DESCRIPTION")
+  [[ -n $TUNNEL ]] && cmd+=(-tunnel "$TUNNEL")
+  [[ -n $AUTO_DISCOVERY_ADDRESS ]] &&
     cmd+=(-autoDiscoveryAddress "$AUTO_DISCOVERY_ADDRESS")
 
   if [ -n "$TOOL_LOCATIONS" ]; then
@@ -41,7 +41,7 @@ run_swarm() {
     done
   fi
 
-  [[ -n "$OTHER_ARGS" ]] && cmd+=("$OTHER_ARGS")
+  [[ -n $OTHER_ARGS ]] && cmd+=("$OTHER_ARGS")
 
   [[ ${#@} -gt 0 ]] && cmd+=("$@")
 
