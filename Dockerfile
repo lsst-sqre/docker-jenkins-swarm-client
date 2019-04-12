@@ -21,12 +21,15 @@ ARG JSWARM_VERSION=3.15
 ARG JSWARM_JAR_NAME=swarm-client-${JSWARM_VERSION}.jar
 ARG JSWARM_JAR_PATH=/usr/share/jenkins
 ARG JSWARM_JAR=${JSWARM_JAR_PATH}/${JSWARM_JAR_NAME}
-ARG HOME=/j
-ARG USER=jenkins-swarm
+ARG JSWARM_FSROOT=/j
+ARG JSWARM_RUN=jenkins-swarm-client-run
 
-ENV JSWARM_RUN=jenkins-swarm-client-run
-ENV JAVA /usr/bin/java
+ARG JSWARM_HOME=/home/jswarm
+ARG JSWARM_USER=jenkins-swarm
+
+ENV JAVA=/usr/bin/java
 ENV JSWARM_JAR=${JSWARM_JAR}
+ENV JSWARM_FSROOT=${JSWARM_FSROOT}
 
 RUN apk add --no-cache --upgrade openjdk8 bash git
 
@@ -41,10 +44,10 @@ RUN chmod 755 ${JSWARM_JAR}
 
 COPY ${JSWARM_RUN} /usr/local/bin/${JSWARM_RUN}
 
-RUN addgroup -S -g 888 ${USER}
-RUN adduser -S -u 888 -G ${USER} -h ${HOME} -s /bin/bash -D ${USER}
+RUN addgroup -S -g 888 ${JSWARM_USER}
+RUN adduser -S -u 888 -G ${JSWARM_USER} -h ${JSWARM_HOME} -s /bin/bash -D ${JSWARM_USER}
 
-USER $USER
-VOLUME $HOME
+USER $JSWARM_USER
+VOLUME $JSWARM_FSROOT
 
 ENTRYPOINT ["bash", "-c", "/usr/local/bin/${JSWARM_RUN}"]
