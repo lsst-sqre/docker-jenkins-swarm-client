@@ -45,11 +45,11 @@ run_swarm() {
 
   [[ ${#@} -gt 0 ]] && cmd+=("$@")
 
-	# display swarm cli invocation
-	set -x
+  # display swarm cli invocation
+  set -x
   "${cmd[@]}"
 }
 
 run_swarm "$@"
 
-# vim: tabstop=2 shiftwidth=2 noexpandtab
+# vim: tabstop=2 shiftwidth=2 expandtab
