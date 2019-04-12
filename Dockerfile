@@ -22,14 +22,14 @@ ARG JSWARM_JAR_NAME=swarm-client-${JSWARM_VERSION}.jar
 ARG JSWARM_JAR_PATH=/usr/share/jenkins
 ARG JSWARM_JAR=${JSWARM_JAR_PATH}/${JSWARM_JAR_NAME}
 ARG JSWARM_FSROOT=/j
-ARG JSWARM_RUN=jenkins-swarm-client-run
 
 ARG JSWARM_HOME=/home/jswarm
-ARG JSWARM_USER=jenkins-swarm
+ARG JSWARM_USER=jswarm
 
 ENV JAVA=/usr/bin/java
 ENV JSWARM_JAR=${JSWARM_JAR}
 ENV JSWARM_FSROOT=${JSWARM_FSROOT}
+ENV JSWARM_RUN=jenkins-swarm-client-run
 
 RUN apk add --no-cache --upgrade openjdk8 bash git
 
