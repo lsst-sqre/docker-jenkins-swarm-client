@@ -47,7 +47,11 @@ COPY ${JSWARM_RUN} /usr/local/bin/${JSWARM_RUN}
 RUN addgroup -S -g 888 ${JSWARM_USER}
 RUN adduser -S -u 888 -G ${JSWARM_USER} -h ${JSWARM_HOME} -s /bin/bash -D ${JSWARM_USER}
 
-USER $JSWARM_USER
+RUN mkdir -p ${JSWARM_FSROOT} \
+    && chmod 6700 ${JSWARM_FSROOT} \
+    && chown ${JSWARM_USER}:${JSWARM_USER} ${JSWARM_FSROOT}
 VOLUME $JSWARM_FSROOT
+
+USER $JSWARM_USER
 
 ENTRYPOINT ["bash", "-c", "/usr/local/bin/${JSWARM_RUN}"]
