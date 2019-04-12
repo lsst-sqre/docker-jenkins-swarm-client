@@ -1,7 +1,7 @@
 #
 # download swarm jar
 #
-FROM alpine:3.8 as downloader
+FROM alpine:3.9 as downloader
 
 ARG JSWARM_VERSION=3.14
 ARG JSWARM_JAR_NAME=swarm-client-${JSWARM_VERSION}.jar
@@ -15,7 +15,7 @@ RUN curl -sSLo /${JSWARM_JAR_NAME} \
 #
 # construct swarm agent runtime
 #
-FROM alpine:3.8
+FROM alpine:3.9
 
 ARG JSWARM_VERSION=3.14
 ARG JSWARM_JAR_NAME=swarm-client-${JSWARM_VERSION}.jar
