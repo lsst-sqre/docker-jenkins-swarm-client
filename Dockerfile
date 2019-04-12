@@ -31,10 +31,9 @@ ENV JSWARM_JAR=${JSWARM_JAR}
 ENV JSWARM_FSROOT=${JSWARM_FSROOT}
 ENV JSWARM_RUN=jenkins-swarm-client-run
 
-RUN apk add --no-cache --upgrade openjdk8 bash git
+RUN apk add --no-cache --upgrade openjdk8 bash git docker
 
-# install docker client
-RUN apk add --no-cache --upgrade docker
+# fixup docker client
 RUN chmod u+s /usr/bin/docker
 
 RUN mkdir -p ${JSWARM_JAR_PATH}
