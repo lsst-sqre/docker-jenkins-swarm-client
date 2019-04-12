@@ -3,22 +3,21 @@ sudo: false
 language: c
 matrix:
   include:
-    - &plumb
+    - &docker
       env: TEST=markdownlint
-      language: c
       services:
         - docker
       script: ./tests/mdl.sh
 
-    - <<: *plumb
+    - <<: *docker
       env: TEST=yamllint
       script: ./tests/yamllint.sh
 
-    - <<: *plumb
+    - <<: *docker
       env: TEST=shellcheck
       script: ./tests/shellcheck.sh
 
-    - <<: *plumb
+    - <<: *docker
       env: TEST=hadolint
       script: ./tests/hadolint.sh
 
