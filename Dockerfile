@@ -3,7 +3,7 @@
 #
 FROM alpine:3.9 as downloader
 
-ARG JSWARM_VERSION=3.14
+ARG JSWARM_VERSION=3.15
 ARG JSWARM_JAR_NAME=swarm-client-${JSWARM_VERSION}.jar
 ARG DL_BASE_URL=https://repo.jenkins-ci.org/releases/org/jenkins-ci/plugins/swarm-client
 
@@ -17,7 +17,7 @@ RUN curl -sSLo /${JSWARM_JAR_NAME} \
 #
 FROM alpine:3.9
 
-ARG JSWARM_VERSION=3.14
+ARG JSWARM_VERSION=3.15
 ARG JSWARM_JAR_NAME=swarm-client-${JSWARM_VERSION}.jar
 ARG JSWARM_JAR_PATH=/usr/share/jenkins
 ARG JSWARM_JAR=${JSWARM_JAR_PATH}/${JSWARM_JAR_NAME}
