@@ -28,7 +28,7 @@ ENV SWARM_RUN=jenkins-swarm-client-run
 ENV JAVA /usr/bin/java
 ENV JENKINS_SWARM_JAR=${SWARM_JAR}
 
-RUN apk add --no-cache --upgrade openjdk8 bash git git-lfs
+RUN apk add --no-cache --upgrade openjdk8 bash git
 
 # install docker client
 RUN apk add --no-cache --upgrade docker
