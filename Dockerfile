@@ -41,8 +41,8 @@ RUN chmod 755 ${JSWARM_JAR}
 
 COPY ${JSWARM_RUN} /usr/local/bin/${JSWARM_RUN}
 
-RUN addgroup -S -g 444 ${USER}
-RUN adduser -S -u 444 -G ${USER} -h ${HOME} -s /bin/bash -D ${USER}
+RUN addgroup -S -g 888 ${USER}
+RUN adduser -S -u 888 -G ${USER} -h ${HOME} -s /bin/bash -D ${USER}
 
 USER $USER
 VOLUME $HOME
