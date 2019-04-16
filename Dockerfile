@@ -17,9 +17,19 @@ RUN curl -sSLo /${JSWARM_JAR_NAME} ${JSWARM_URL}
 RUN curl -sSLo /${JMXEX_JAR_NAME} ${JMXEX_URL}
 
 #
+# pkg base
+#
+FROM alpine:3.9 as pkg_base
+
+RUN apk add --no-cache --upgrade openjdk8 bash git docker
+
+# fixup docker client
+RUN chmod u+s /usr/bin/docker
+
+#
 # construct swarm agent runtime
 #
-FROM alpine:3.9
+FROM pkg_base
 
 ARG JSWARM_VERSION=3.15
 ARG JSWARM_JAR_NAME=swarm-client-${JSWARM_VERSION}.jar
@@ -41,11 +51,6 @@ ENV JAVA=/usr/bin/java
 ENV JSWARM_JAR=${JSWARM_JAR}
 ENV JSWARM_FSROOT=${JSWARM_FSROOT}
 ENV JSWARM_RUN=jenkins-swarm-client-run
-
-RUN apk add --no-cache --upgrade openjdk8 bash git docker
-
-# fixup docker client
-RUN chmod u+s /usr/bin/docker
 
 # install swarm jar
 RUN mkdir -p ${JSWARM_JAR_DIR}
