@@ -22,7 +22,7 @@ echo
 
 for f in "${CHECK[@]}"; do
   docker run -ti -v "$(pwd):$(pwd)" -w "$(pwd)" \
-    hadolint/hadolint hadolint "$f"
+    hadolint/hadolint:v1.13.0 hadolint "$f"
 done
 
 # vim: tabstop=2 shiftwidth=2 expandtab

@@ -3,11 +3,12 @@
 set -e
 shopt -s globstar nullglob
 
-CHECK=( **/*.yaml **/*.yml **/*.eyaml .travis.yml )
+CHECK=( **/*.{yaml,yml,.eyaml} .*.{yml,yaml} )
 EYAML=( **/*.eyaml )
 IGNORE=()
+CONF_FILE=".yamllint.yaml"
 
-# filter out plaintext versions of .eyaml files
+# filter out plain text versions of .eyaml files
 for e in "${!EYAML[@]}"; do
   uneyaml=${EYAML[e]/eyaml/yaml}
   for c in "${!CHECK[@]}"; do
@@ -29,6 +30,9 @@ for c in "${CHECK[@]}"; do
 done
 echo
 
-docker run -ti -v "$(pwd):/workdir" lsstsqre/yamllint:1.11.1 "${CHECK[@]}"
+ARGS=()
+[[ -f $CONF_FILE ]] && ARGS+=(-c "$CONF_FILE")
+ARGS+=("${CHECK[@]}")
+docker run -ti -v "$(pwd):/workdir" lsstsqre/yamllint:1.13.0 "${ARGS[@]}"
 
 # vim: tabstop=2 shiftwidth=2 expandtab
