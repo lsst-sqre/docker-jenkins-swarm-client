@@ -39,6 +39,9 @@ ARG JSWARM_FSROOT=/j
 
 ARG JSWARM_HOME=/home/jswarm
 ARG JSWARM_USER=jswarm
+ARG JSWARM_UID=888
+ARG JSWARM_GROUP=${JSWARM_USER}
+ARG JSWARM_GID=${JSWARM_UID}
 
 ARG JMXEX_VERSION=0.11.0
 ARG JMXEX_JAR_NAME=jmx_prometheus_javaagent-${JMXEX_VERSION}.jar
@@ -67,8 +70,8 @@ RUN chmod 755 ${JMXEX_JAR}
 COPY ${JSWARM_RUN} /usr/local/bin/${JSWARM_RUN}
 COPY ${JMXEX_YAML_NAME} ${JMXEX_YAML}
 
-RUN addgroup -S -g 888 ${JSWARM_USER}
-RUN adduser -S -u 888 -G ${JSWARM_USER} -h ${JSWARM_HOME} -s /bin/bash -D ${JSWARM_USER}
+RUN addgroup -S -g ${JSWARM_GID} ${JSWARM_GROUP}
+RUN adduser -S -u ${JSWARM_UID} -G ${JSWARM_GROUP} -h ${JSWARM_HOME} -s /bin/bash -D ${JSWARM_USER}
 
 RUN mkdir -p ${JSWARM_FSROOT} \
     && chmod 6700 ${JSWARM_FSROOT} \
