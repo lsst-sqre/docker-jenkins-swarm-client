@@ -38,7 +38,7 @@ run_swarm() {
   [[ -n $JSWARM_AUTO_DISCOVERY_ADDRESS ]] &&
     cmd+=(-autoDiscoveryAddress "$JSWARM_AUTO_DISCOVERY_ADDRESS")
 
-  if [ -n "$JSWARM_TOOL_LOCATIONS" ]; then
+  if [[ -n "$JSWARM_TOOL_LOCATIONS" ]]; then
     for t in $JSWARM_TOOL_LOCATIONS; do
       cmd+=(--toolLocation "$t")
     done
