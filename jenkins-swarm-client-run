@@ -48,7 +48,11 @@ run_swarm() {
     done
   fi
 
-  [[ -n $JSWARM_OTHER_ARGS ]] && cmd+=("$JSWARM_OTHER_ARGS")
+  if [[ -n $JSWARM_OTHER_ARGS ]]; then
+    declare -a jswarm_other_args_tmp
+    IFS=" " read -r -a jswarm_other_args_tmp <<< "$JSWARM_OTHER_ARGS"
+    cmd+=("${jswarm_other_args_tmp[@]}")
+  fi
 
   [[ ${#@} -gt 0 ]] && cmd+=("$@")
 
