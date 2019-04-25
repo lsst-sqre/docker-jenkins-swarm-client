@@ -17,7 +17,11 @@ run_swarm() {
   declare -a cmd
 
   cmd=("$java")
-  [[ -n $JAVA_ARGS ]] && cmd+=("$JAVA_ARGS")
+  if [[ -n $JAVA_ARGS ]]; then
+    declare -a java_args_tmp
+    IFS=" " read -r -a java_args_tmp <<< "$JAVA_ARGS"
+    cmd+=("${java_args_tmp[@]}")
+  fi
   cmd+=(-jar "$JSWARM_JAR")
   [[ -n $JSWARM_MODE ]] && cmd+=(-mode "$JSWARM_MODE")
   [[ -n $JSWARM_EXECUTORS ]] && cmd+=(-executors "$JSWARM_EXECUTORS")
