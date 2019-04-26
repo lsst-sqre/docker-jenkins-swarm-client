@@ -23,9 +23,6 @@ FROM alpine:3.9 as pkg_base
 
 RUN apk add --no-cache --upgrade openjdk8 bash git docker
 
-# fixup docker client
-RUN chmod u+s /usr/bin/docker
-
 #
 # construct swarm agent runtime
 #
