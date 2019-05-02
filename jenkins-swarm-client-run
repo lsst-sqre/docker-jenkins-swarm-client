@@ -17,7 +17,11 @@ run_swarm() {
   declare -a cmd
 
   cmd=("$java")
-  [[ -n $JAVA_ARGS ]] && cmd+=("$JAVA_ARGS")
+  if [[ -n $JAVA_ARGS ]]; then
+    declare -a java_args_tmp
+    IFS=" " read -r -a java_args_tmp <<< "$JAVA_ARGS"
+    cmd+=("${java_args_tmp[@]}")
+  fi
   cmd+=(-jar "$JSWARM_JAR")
   [[ -n $JSWARM_MODE ]] && cmd+=(-mode "$JSWARM_MODE")
   [[ -n $JSWARM_EXECUTORS ]] && cmd+=(-executors "$JSWARM_EXECUTORS")
@@ -38,13 +42,17 @@ run_swarm() {
   [[ -n $JSWARM_AUTO_DISCOVERY_ADDRESS ]] &&
     cmd+=(-autoDiscoveryAddress "$JSWARM_AUTO_DISCOVERY_ADDRESS")
 
-  if [ -n "$JSWARM_TOOL_LOCATIONS" ]; then
+  if [[ -n "$JSWARM_TOOL_LOCATIONS" ]]; then
     for t in $JSWARM_TOOL_LOCATIONS; do
       cmd+=(--toolLocation "$t")
     done
   fi
 
-  [[ -n $JSWARM_OTHER_ARGS ]] && cmd+=("$JSWARM_OTHER_ARGS")
+  if [[ -n $JSWARM_OTHER_ARGS ]]; then
+    declare -a jswarm_other_args_tmp
+    IFS=" " read -r -a jswarm_other_args_tmp <<< "$JSWARM_OTHER_ARGS"
+    cmd+=("${jswarm_other_args_tmp[@]}")
+  fi
 
   [[ ${#@} -gt 0 ]] && cmd+=("$@")
 
