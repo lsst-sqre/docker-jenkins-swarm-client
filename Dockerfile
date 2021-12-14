@@ -3,7 +3,7 @@
 #
 FROM alpine:3 as downloader
 
-ARG JSWARM_VERSION=3.16
+ARG JSWARM_VERSION=3.15
 ARG JSWARM_JAR_NAME=swarm-client-${JSWARM_VERSION}.jar
 ARG JSWARM_URL=https://repo.jenkins-ci.org/releases/org/jenkins-ci/plugins/swarm-client/${JSWARM_VERSION}/${JSWARM_JAR_NAME}
 
