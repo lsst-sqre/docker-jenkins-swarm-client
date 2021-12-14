@@ -21,7 +21,7 @@ RUN curl -sSLo /${JMXEX_JAR_NAME} ${JMXEX_URL}
 #
 FROM alpine:3 as pkg_base
 
-RUN apk add --no-cache --upgrade openjdk8 bash git docker
+RUN apk add --no-cache --upgrade openjdk8 bash git docker make
 
 #
 # construct swarm agent runtime
